@@ -39,8 +39,25 @@ provider端
 
 （4）这步可以不做，也可以做，塞入一些数据，方便后面接受者进行测试。
 
+
 resolver端
 
 （1）可以有，也可以没有，有对应的model类，便于数据库的值取出来的时候赋值。
 
 （2）getContentResolver()通过uri进行增删改查，通过ContentValues来传值赋值。
+
+
+通过上面的记录，可以很直观看见，
+
+（1）aidl配合性，相比起来比provider麻烦，如果server端，修改aidl文件，
+server端要重新make project一下，然后再把aidl文件复制到client端，然后client端要重新make project一下。
+
+（2）aidl灵活性，相比起来比provider灵活，provider只能操作数据库，其他一些方法无法通过getContentResolver()获取调用，
+而aidl无论数据库，还是一些方法都能调用，想定义什么方法都行。
+
+
+进程间通信，aidl和provider最后总结，
+
+（1）简单的业务，而且只需要操作数据库就能满足需求的，就推荐使用provider，非常方便。
+
+（2）复杂的业务，方法种类繁多的，或者是硬件类即时性获取传输的，就推荐使用aidl，也很方便。
